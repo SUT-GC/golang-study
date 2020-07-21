@@ -1,0 +1,71 @@
+# 第三天
+
+---
+
+go 的if，for，后面都不用在条件上加`()`, 但是 `{}` 是必须的
+
+go 是没有while循环的，都是用 for 来实现
+
+```golang
+for i:=0;i<10;i++ {
+}
+
+for i < 10 { // 单循环
+}
+
+for { // 死循环
+}
+```
+
+`rang` 用来实现键值循环，可以用来遍历`数组`,`切片`,`map`,`字符串`,`channel`    
+
+* map 返回 k&v
+* 数组，切片，字符串，返回index&v
+* channel 只返回通道里面的值
+
+go 支持 switch, switch 一个分支可以多个值, switch 后面可以跟着条件表达式    
+
+swtich 默认执行完一个case就会break， 如果想要接着执行下面的case，要在上面case后面写`fallthrough`关键字    
+
+
+```golang
+switch a {
+    case 1:
+        // 1 pass
+    default:
+        // default
+}
+```
+
+go 支持goto 关键字
+
+```golang
+for i:=0; i<10; i++ {
+    for j:=0; j<10; j++ {
+        goto breakTag    
+    }
+}
+
+breakTag:
+    fmt.Print("break")
+
+```
+
+go 对 break 的支持更多样，支持break `for` `swtich` `select`     
+break 后面也可以加标签，但是标签必须定义在 `for` `switch` `select`的代码块上    
+
+
+```golang
+breakTag:
+    for i:=0; i<10; i++ {
+        for j:=0; j<10; j++ {
+            break breakTag    
+        }
+    }
+```
+
+go 的 continue 跟 break 一样的用法
+
+----
+
+
