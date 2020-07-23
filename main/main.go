@@ -1,25 +1,42 @@
 package main
 
-import "fmt"
-
-const gc = "gc"
-
-const (
-	n1 = iota // 0
-	n2 // 1
-	n3 = iota // 2
-	n4 // 3
-	n5 = 1 // 1
-	n6 // 1
-	n7 = iota // 6
+import (
+	"errors"
+	"fmt"
 )
 
-func main() {
-	var name string
-	name = "gc"
+type BusinessError struct {
+	message string
+}
 
-	var age int
-	fmt.Println("hello world", name, age)
-	fmt.Println(gc)
-	fmt.Println(n1, n2, n3, n4, n5, n6, n7)
+func (businessError BusinessError) Error() string {
+	return businessError.message
+}
+
+func testError1(i int) (string, error) {
+	if i < 10 {
+		return "Fail", BusinessError{message: "i can't < 0"}
+	}
+	return "Success", nil
+}
+
+func testError2(i int) (string, error) {
+	if i > 10 {
+		return "Fail", errors.New("i can't > 10")
+	}
+	return "Success", nil
+}
+func main() {
+	str, err := testError1(9)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(str)
+	}
+	str, err = testError2(11)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(str)
+	}
 }
